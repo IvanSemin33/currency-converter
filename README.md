@@ -1,4 +1,6 @@
 # Currency Converter :euro::dollar:
+
+## You can test it [here](https://currency-converter-3000.web.app/)
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -1,6 +1,10 @@
+/*  ConversionsList Component Styles */
 .grid-item-table {
     width: 90%;
 }
 th {
-    background-color: #edffe0;
+    background-color: #e0e0e0;
+}
+td {
+    background-color: #f3f3f3;
 }

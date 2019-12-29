@@ -1,3 +1,7 @@
+//////////////////////////////////////
+///            Constants           ///
+//////////////////////////////////////
+
 export const ADD_CONVERSION = 'ADD_CONVERSION';
 export const DELETE_CONVERSION = 'DELETE_CONVERSION';
 export const LOAD_CONVERSIONS = 'LOAD_CONVERSIONS';

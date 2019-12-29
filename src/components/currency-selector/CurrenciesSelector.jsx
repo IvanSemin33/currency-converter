@@ -1,4 +1,9 @@
+//////////////////////////////////////
+/// Currencies Selectors Component ///
+//////////////////////////////////////
+
 import React, { Component } from 'react';
+
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -8,36 +13,41 @@ import CachedIcon from '@material-ui/icons/Cached';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
-import { addConversion } from '../../redux/actions/actionCreator';
+import { addConversion } from '../../redux/actions/action-conversions';
 import './currenciesSelector.css';
 
 
 class CurrenciesSelector extends Component {
 
     state = {
-        valueFrom: '',
-        valueTo: '',
+        valueFrom: '', // from currency
+        valueTo: '', // to currency
     }
 
+    // From selector handler 
     handleChangeFrom = event => {
         this.setState({valueFrom: event.target.value})
     };
 
+    // To selector handler 
     handleChangeTo = event => {
         this.setState({valueTo: event.target.value})
     };
 
+    // Convert button handler
     onClickConvert = () => {
         const {valueFrom, valueTo} = this.state;
+        // Get From & To Object of currencies from currenciesList
         const { currenciesList, conversionsList } = this.props;
         const from = currenciesList[valueFrom];
         const to = currenciesList[valueTo];
-
+        // Ckeck: Is this conversion already added?
         const isAdded = conversionsList.filter( conversion => 
             conversion.from.id === from.id && 
             conversion.to.id === to.id
             ).length !== 0;
-
+        // If this conversion is not in the table
+        // add it to the table
         if(!isAdded) {
             store.dispatch(addConversion(
                 {
@@ -56,6 +66,7 @@ class CurrenciesSelector extends Component {
         }
     }
     
+    // Render Currencies Selectors
     render() {
         const { currenciesList } = this.props;
         const {valueFrom, valueTo} = this.state;
@@ -68,6 +79,7 @@ class CurrenciesSelector extends Component {
                 alignItems="center"
                 spacing={3}
             >
+                {/* From Selector */}
                 <Grid item>
                     <FormControl className="form-control">
                         <InputLabel id="select-label-from">
@@ -81,7 +93,12 @@ class CurrenciesSelector extends Component {
                             {Object.values(currenciesList)
                                 .map( currency => {
                                     const { id, currencyName, currencySymbol } = currency;
-                                    const currencyFullName = `${id} - ${currencyName} - ${currencySymbol}`;
+                                    let currencyFullName = `${id} - ${currencyName}`;
+                                    // If currencySymbol exist
+                                    // add it to currencyFullName
+                                    if(currencySymbol !== undefined) {
+                                        currencyFullName = currencyFullName.concat(` - ${currencySymbol}`);
+                                    } 
                                     return (
                                         <MenuItem key={id} value={id}>
                                             {currencyFullName}
@@ -91,6 +108,7 @@ class CurrenciesSelector extends Component {
                         </Select>
                     </FormControl>
                 </Grid>
+                {/* To Selector */}
                 <Grid item>
                     <FormControl className="form-control">
                         <InputLabel id="select-label-to">
@@ -104,7 +122,12 @@ class CurrenciesSelector extends Component {
                             {Object.values(currenciesList)
                                 .map( currency => {
                                     const { id, currencyName, currencySymbol } = currency;
-                                    const currencyFullName = `${id} - ${currencyName} - ${currencySymbol}`;
+                                    let currencyFullName = `${id} - ${currencyName}`;
+                                    // If currencySymbol exist
+                                    // add it to currencyFullName
+                                    if(currencySymbol !== undefined) {
+                                        currencyFullName = currencyFullName.concat(` - ${currencySymbol}`);
+                                    } 
                                     return (
                                         <MenuItem key={id} value={id}>
                                             {currencyFullName}
@@ -114,14 +137,17 @@ class CurrenciesSelector extends Component {
                         </Select>
                     </FormControl>
                 </Grid>
+                {/* Convert Button */}
                 <Grid item>
-                    {valueFrom === '' || valueTo === '' ? 
-                        <Button variant="contained" disabled>
-                            Convert<CachedIcon fontSize="large"/>
-                        </Button> :
-                        <Button variant="contained" color="primary" onClick={this.onClickConvert}>
-                            Convert<CachedIcon fontSize="large"/>
-                        </Button>
+                    {   // If From & To currencies are selected
+                        // make convert button clickable
+                        valueFrom === '' || valueTo === '' ? 
+                            <Button variant="contained" disabled>
+                                Convert<CachedIcon fontSize="large"/>
+                            </Button> :
+                            <Button variant="contained" color="primary" onClick={this.onClickConvert}>
+                                Convert<CachedIcon fontSize="large"/>
+                            </Button>
                     }      
                 </Grid>
             </Grid>

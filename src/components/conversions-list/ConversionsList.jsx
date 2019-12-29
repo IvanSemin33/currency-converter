@@ -1,3 +1,6 @@
+///////////////////////////////////////////
+/// Conversions History Table Component ///
+///////////////////////////////////////////
 import React, { Component } from 'react';
 
 import Table from '@material-ui/core/Table';
@@ -12,17 +15,20 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import { deleteConversion } from '../../redux/actions/actionCreator';
+import { deleteConversion } from '../../redux/actions/action-conversions';
 import store from '../../redux/store';
 import './conversionsList.css';
 
 class ConversionsList extends Component {
     
+    // Delete conversion from table
     onClickDelete = (from, to) => {
         store.dispatch(deleteConversion({ from, to }));
     }
 
+    // Render history table 
     render() {
+        // Get conversionsList from props
         const { conversionsList } = this.props;
 
         return(
@@ -49,23 +55,27 @@ class ConversionsList extends Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {conversionsList.length === 0 ?
-                                <TableRow key='empty'>
-                                    <TableCell colSpan={3} align="center">Empty</TableCell>
-                                </TableRow>     
-                                :
-                                conversionsList.map(conversion => (
-                                    <TableRow key={`${conversion.from.id}_${conversion.to.id}`}>
-                                        <TableCell>{`${conversion.from.id} - ${conversion.from.currencyName}`}</TableCell>
-                                        <TableCell>{`${conversion.to.id} - ${conversion.to.currencyName}`}</TableCell>
-                                        <TableCell>{conversion.price}</TableCell>
-                                        <TableCell>
-                                            <Button variant="contained" color="secondary" onClick={() => this.onClickDelete(conversion.from, conversion.to)}>
-                                                <DeleteForeverIcon fontSize="default"/>
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>)
-                                )
+                            
+                            {   // Check: Is conversionsList empty?
+                                conversionsList.length === 0 ?
+                                    <TableRow key='empty'>
+                                        <TableCell colSpan={3} align="center">Empty</TableCell>
+                                    </TableRow>     
+                                    :
+                                    // If conversionsList not empty
+                                    // make table cells
+                                    conversionsList.map(conversion => (
+                                        <TableRow key={`${conversion.from.id}_${conversion.to.id}`}>
+                                            <TableCell>{`${conversion.from.id} - ${conversion.from.currencyName}`}</TableCell>
+                                            <TableCell>{`${conversion.to.id} - ${conversion.to.currencyName}`}</TableCell>
+                                            <TableCell>{conversion.price}</TableCell>
+                                            <TableCell>
+                                                <Button variant="contained" color="secondary" onClick={() => this.onClickDelete(conversion.from, conversion.to)}>
+                                                    <DeleteForeverIcon fontSize="default"/>
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>)
+                                    )
                             }
                             </TableBody>
                         </Table>

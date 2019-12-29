@@ -1,3 +1,8 @@
+/*  Header Component Styles */
+
 .head-text {
     text-align: center;
+}
+.icon-img {
+    width: 80px;
 }

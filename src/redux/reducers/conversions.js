@@ -1,18 +1,23 @@
+//////////////////////////////////////
+///       Conversions Reducer      ///
+//////////////////////////////////////
+
 import { ADD_CONVERSION, LOAD_CONVERSIONS, DELETE_CONVERSION } from '../constants';
 
+// Initial state
 const CONVERSIONS = [
   // {
   //   from: {
-  //       currencyName: 'rub',
-  //       currencySymbol: 'r',
-  //       id: 'rubl',
+  //       currencyName: 'Рубль',
+  //       currencySymbol: '₽',
+  //       id: 'RUB',
   //   },
   //   to: {
-  //       currencyName: 'usd',
-  //       currencySymbol: 'vf',
-  //       id: 'usdd',
+  //       currencyName: 'USD',
+  //       currencySymbol: '$',
+  //       id: 'USD',
   //   },
-  //   price: 100
+  //   price: 63
   // } 
 ];
 
