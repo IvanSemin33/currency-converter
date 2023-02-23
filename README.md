@@ -1,7 +1,4 @@
-# Currency Converter :euro::dollar:
-
-## You can test it [here](https://currency-converter-3000.web.app/)
-
+# Currency Converter :euro:
 
 ## Available Scripts
 
